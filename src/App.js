@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
 
-function App() {
-  return (
+ function App() {
+    const [ data, setData ] = useState([]);
+    console.log('above hook');
+    useEffect( () => {
+      console.log('inside hook');
+      const getData = async () => {
+         let res = await fetch('https://jsonplaceholder.typicode.com/users');
+         let uData = await res.json();
+         setData( uData );
+      }
+    
+       getData();
+    },[])  
+ console.log('below hook');
+   
+  return (    
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1>User data is displayed Below</h1> 
+        {
+          data.map((obj) => {
+            return(
+              <div style={{display:'flex',justifyContent:'space-around', border:'1px solid black'}}>     
+                <p>{obj.id}</p>
+                <p>{obj.name}</p>
+                <p>{obj.email}</p> 
+              </div>
+            )
+          })
+        } 
+        
     </div>
+
   );
 }
 
 export default App;
+
