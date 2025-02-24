@@ -3,10 +3,18 @@
   box-sizing: border-box;
 }
 
-table, td{
-  border: 1px solid black;
+nav{
+  width: 100vw;
+  height: 50px;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+
 }
 
-table{
-  margin: auto;
+.form-container{
+  
 }
