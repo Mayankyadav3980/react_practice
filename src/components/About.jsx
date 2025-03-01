@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { use } from "react";
-
+import Button from "./Button";
+import { ErrorBoundary } from "react-error-boundary";
+import { Title } from "./Us";
+ 
 const About = () => {
   const [userData, setUserData] = useState({
     name: "",
@@ -17,7 +20,9 @@ const About = () => {
 
   // console.log("after fetch", list);
   
-
+  // if(true){
+  //   throw new Error('custom error message')
+  // }
   const handleChange = (e) => {
     const field = e.target.name;
     const value = e.target.value;
@@ -37,34 +42,41 @@ const About = () => {
   }
   return (
     <div className="main-container">
-      <div className="form-container">
-        <form onSubmit={handleSubmit}>
-          <input
-            placeholder="name"
-            type="text"
-            name="name"
-            required
-            value={userData.name}
-            onChange={handleChange}
-          />
-          <input
-            placeholder="age"
-            type="number"
-            name="age"
-            required
-            value={userData.age}
-            onChange={handleChange}
-          />
-          <button>Add</button>
-        </form>
-      </div>
+      <ErrorBoundary fallback={<div>...EB</div>}>
+        <div className="form-container">
+          <form onSubmit={handleSubmit}>
+            <Title>this is title in about</Title>
+            <input
+              placeholder="name"
+              type="text"
+              name="name"
+              required
+              value={userData.name}
+              onChange={handleChange}
+            />
+            <input
+              placeholder="age"
+              type="number"
+              name="age"
+              required
+              value={userData.age}
+              onChange={handleChange}
+            />
+            <button>Add</button>
+
+            <Button />
+          </form>
+        </div>
+      </ErrorBoundary>
 
       <div>
-        {list.map((obj, idx)=>{
-            return <div>
-                <p>{obj.name}</p>
-                <p>{obj.age}</p>
+        {list.map((obj, idx) => {
+          return (
+            <div>
+              <p>{obj.name}</p>
+              <p>{obj.age}</p>
             </div>
+          );
         })}
       </div>
     </div>
