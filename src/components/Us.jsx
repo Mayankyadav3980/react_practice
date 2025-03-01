@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
+import styles from './us.module.css';
 
 const Us = () => {
 
   return (
-    <Wrapper>
-      <Title color="green">Hello this is title</Title>
-    </Wrapper>
-  )
+    <div className="div-class">
+      <p className={styles.p}>this is para</p>
+    </div>
+  );
 }
 
 export default Us;

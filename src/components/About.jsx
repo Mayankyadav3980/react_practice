@@ -45,7 +45,7 @@ const About = () => {
       <ErrorBoundary fallback={<div>...EB</div>}>
         <div className="form-container">
           <form onSubmit={handleSubmit}>
-            <Title>this is title in about</Title>
+            {/* <Title>this is title in about</Title> */}
             <input
               placeholder="name"
               type="text"
