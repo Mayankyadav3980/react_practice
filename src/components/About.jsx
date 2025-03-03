@@ -1,83 +1,54 @@
-import React, { useState } from "react";
-import { use } from "react";
-import Button from "./Button";
-import { ErrorBoundary } from "react-error-boundary";
-import { Title } from "./Us";
- 
+import React, {useState} from "react";
+import styles from "./about.module.css";
+
 const About = () => {
-  const [userData, setUserData] = useState({
-    name: "",
-    age: "",
-  });
-
-  const [list, setList] = useState([]);
-
-  // console.log("before fetch", list);
-  // fetch("https://jsonplaceholder.typicode.com/users")
-  // .then((res)=> res.json())
-  // .then((data)=>setList(data))
-  // const data = res.json();
-
-  // console.log("after fetch", list);
-  
-  // if(true){
-  //   throw new Error('custom error message')
-  // }
-  const handleChange = (e) => {
-    const field = e.target.name;
-    const value = e.target.value;
-
-    setUserData((prevState) => ({...prevState, [field]: value}))
-  }
+  const [todo, setTodo] = useState('');
+  const [todos, setTodos] = useState([])
+  const [delTodo, setDelTdo] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setList((prevState) => ([...prevState, userData]));
-    setUserData({
-      name: "",
-      age: "",
-    });
-    console.log(list)
-
+    setTodos(ps => [...ps, {id:todos.length+1, value:todo}]);
+    setTodo('');
   }
+
+  const toggle = (id)  => {
+    const todo = todos.find(obj => obj.id === id);
+    setDelTdo(pv=>[...pv, todo]);
+    setTodos(ps => ps.filter(todo => todo.id !==id))
+    // alert('todoDeleted')
+  }
+
   return (
-    <div className="main-container">
-      <ErrorBoundary fallback={<div>...EB</div>}>
-        <div className="form-container">
-          <form onSubmit={handleSubmit}>
-            {/* <Title>this is title in about</Title> */}
-            <input
-              placeholder="name"
-              type="text"
-              name="name"
-              required
-              value={userData.name}
-              onChange={handleChange}
-            />
-            <input
-              placeholder="age"
-              type="number"
-              name="age"
-              required
-              value={userData.age}
-              onChange={handleChange}
-            />
-            <button>Add</button>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          placeholder="todo"
+          value={todo}
+          onChange={(e) => setTodo(e.target.value)}
+        />
+        <button type="submit">Add</button>
+      </form>
 
-            <Button />
-          </form>
-        </div>
-      </ErrorBoundary>
+      <div className={styles.completedTodos}>
+        <ul>
+          {todos.map((todo) => {
+            return (
+              <li key={todo.id}>
+                {todo.value}
+                <button onClick={() => toggle(todo.id)}>Delete</button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
-      <div>
-        {list.map((obj, idx) => {
-          return (
-            <div>
-              <p>{obj.name}</p>
-              <p>{obj.age}</p>
-            </div>
-          );
-        })}
+      <div className={styles.inCompletedTodos}>
+        <ul>
+          {delTodo.map((todo, idx) => {
+            return <li key={idx}>{todo.value}</li>;
+          })}
+        </ul>
       </div>
     </div>
   );

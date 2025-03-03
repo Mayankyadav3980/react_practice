@@ -1,0 +1,13 @@
+/* .mainContainer{
+     border-width: 1px;
+     border-color: yellow ;
+     border-style: solid;
+} */
+
+.completedTodos{
+   color: yellow;
+}
+.inCompletedTodos{
+    color: rgb(209, 103, 103);
+     border: 1px solid red
+}
