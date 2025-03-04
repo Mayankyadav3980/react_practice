@@ -2,3 +2,11 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+li{
+  cursor: pointer;
+}
+
+li:hover{
+  background-color: rgb(190, 176, 176);
+}
