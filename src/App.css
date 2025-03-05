@@ -10,3 +10,12 @@ li{
 li:hover{
   background-color: rgb(190, 176, 176);
 }
+
+.lightTheme{
+  
+}
+
+.darkTheme{
+background-color: black;
+color: white;
+}
