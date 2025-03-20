@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import "./App.css"
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [selectOptions, setSelectOptions] = useState([])
   const [text, setText] = useState("");
   const [suggList, setSuggList] = useState([]);
 
@@ -12,6 +14,7 @@ const App = () => {
     }
     const json = await res.json();
     // console.log(json);
+    setSelectOptions(Object.keys(json[0]));
     setData(json);
   };
 
@@ -28,17 +31,36 @@ const App = () => {
 
   const handleChange = (value) => {
     setText(value);
+    if(value !== "")
     showSuggestions(value);
   }
+  const handleClick = (user) => {
+    setText(user.name);
+    setSuggList([]);
+  }
   return (
-    <div>
-      <input placeholder="type here"
-             value={text}
-             onChange={(e)=>handleChange(e.target.value)} 
-             className={styles.input}/>
+    <div className="container">
+      <label>Choose field:</label>
+      <select defaultValue={`name`}>
+        {selectOptions.map((val) => (
+          <option value={val}>{val}</option>
+          // val === 'name'? <option value={val} selected>{val}</option>:<option value={val}>{val}</option>
+        ))}
+      </select>
+      <input
+        placeholder="type here"
+        value={text}
+        onChange={(e) => handleChange(e.target.value)}
+        className="inp"
+      />
+
       <ul>
-        {suggList.map((l,idx)=>{
-          return <li key={idx}>{l.name}</li>
+        {suggList.map((l) => {
+          return (
+            <li key={l.id} className="list-item" onClick={() => handleClick(l)}>
+              {l.name}
+            </li>
+          );
         })}
       </ul>
     </div>
@@ -46,10 +68,3 @@ const App = () => {
 };
 
 export default App;
-
-const styles = {
-  input:{
-    width:"50vw",
-    margin: " 20px auto"
-  }
-}
