@@ -5,15 +5,7 @@ const Navbar = () => {
   console.log("nav reRendered")
   return (
     <>
-      <nav>
-        <div>Navbar</div>
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="About">About</Link>
-          <Link to="Us">Us</Link>
-        </div>
-      </nav>
-      <Outlet/>
+     
     </>
   );
 }
